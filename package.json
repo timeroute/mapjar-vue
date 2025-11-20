@@ -1,0 +1,31 @@
+{
+  "name": "mapjar-vue",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
+  "main": "./dist/mapjar-vue.umd.cjs",
+  "module": "./dist/mapjar-vue.js",
+  "types": "./index.d.ts",
+  "exports": {
+    "types": "./index.d.ts",
+    "import": "./dist/mapjar-vue.js",
+    "require": "./dist/mapjar-vue.umd.cjs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.2",
+    "typescript": "~5.9.2",
+    "vite": "^7.1.5",
+    "vue": "^3.5.24"
+  },
+  "dependencies": {
+    "mapjar": "^0.3.1"
+  }
+}
