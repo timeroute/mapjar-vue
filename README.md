@@ -201,6 +201,114 @@ const tileLayer = tileLayerRef.value?.getTileLayer()
 </template>
 ```
 
+### VectorLayer 组件
+
+用于绘制矢量数据（点、线、面）。
+
+#### Props
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| id | `string` | 图层唯一标识（必填） |
+| style | `VectorStyle` | 样式配置 |
+| dataDrivenStyle | `DataDrivenStyle` | 数据驱动样式配置 |
+
+#### Methods
+
+- `addFeature(feature: Feature)`: 添加要素
+- `addFeatures(features: Feature[])`: 批量添加要素
+- `clearFeatures()`: 清空要素
+- `getFeatures()`: 获取所有要素
+
+### GeoJSONLayer 组件
+
+用于加载和显示 GeoJSON 数据。
+
+#### Props
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| id | `string` | 图层唯一标识（必填） |
+| url | `string` | GeoJSON 数据 URL |
+| data | `GeoJSON` | GeoJSON 数据对象 |
+| style | `VectorStyle` | 样式配置 |
+
+### ImageLayer 组件
+
+用于在地图上叠加图片。
+
+#### Props
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| id | `string` | 图层唯一标识（必填） |
+| url | `string` | 图片 URL |
+| image | `HTMLImageElement` | 图片元素 |
+| bounds | `BBox` | 图片显示的地理范围 {minLon, minLat, maxLon, maxLat} |
+| useMipmap | `boolean` | 是否使用 Mipmap（默认 true） |
+
+### WindLayer 组件
+
+用于风场可视化。
+
+#### Props
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| id | `string` | 图层唯一标识（必填） |
+| data | `WindData` | 风场数据 |
+| options | `WindLayerOptions` | 配置项（粒子数量、速度等） |
+
+### HeatmapLayer 组件
+
+用于热力图可视化。
+
+#### Props
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| id | `string` | 图层唯一标识（必填） |
+| data | `HeatmapData` | 热力图数据 |
+| options | `HeatmapLayerOptions` | 配置项（颜色渐变等） |
+
+### OverlayLayer & MapOverlay 组件
+
+用于在地图上放置 HTML 元素。
+
+#### OverlayLayer Props
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| id | `string` | 图层唯一标识（必填） |
+
+#### MapOverlay Props
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| id | `string` | 覆盖物唯一标识（必填） |
+| position | `[number, number]` | 经纬度坐标 |
+| offset | `[number, number]` | 像素偏移 |
+| anchor | `[number, number]` | 锚点（如 [0.5, 1] 表示底部中心） |
+| visible | `boolean` | 是否可见 |
+
+#### 示例
+
+```vue
+<template>
+  <MapjarMap>
+    <OverlayLayer id="overlays">
+      <MapOverlay 
+        id="marker-1" 
+        :position="[116.4, 39.9]" 
+        :anchor="[0.5, 1]"
+      >
+        <div class="custom-marker">📍</div>
+      </MapOverlay>
+    </OverlayLayer>
+  </MapjarMap>
+</template>
+```
+
 ## License
 
 MIT

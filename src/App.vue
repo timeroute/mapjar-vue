@@ -1,100 +1,71 @@
 <template>
-  <div id="app">
-    <h1>Mapjar Vue 组件测试</h1>
-    <div class="map-container">
-      <MapjarMap :center="center" :zoom="zoom" @load="onMapLoad" @error="onMapError">
-        <TileLayer id="osm-tiles" url-template="https://www.tmsats.com/tile2/api/v1/tile/tdt/img/{z}/{x}/{y}"
-          :tile-scale="tileScale" />
-      </MapjarMap>
+  <aside class="sidebar">
+    <div class="logo">
+      <span>Mapjar Vue</span>
     </div>
-    <div class="controls">
-      <button @click="zoom++">放大</button>
-      <button @click="zoom--">缩小</button>
-      <button @click="resetView">重置视图</button>
-      <div class="slider-control">
-        <label>瓦片缩放: {{ tileScale.toFixed(1) }}</label>
-        <input v-model.number="tileScale" type="range" min="0.5" max="3" step="0.1" />
-      </div>
-    </div>
-  </div>
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/tile-layer">Tile Layer</router-link>
+      <router-link to="/vector-layer">Vector Layer</router-link>
+      <router-link to="/overlay">Overlays</router-link>
+      <router-link to="/geojson">GeoJSON</router-link>
+      <router-link to="/others">Other Layers</router-link>
+    </nav>
+  </aside>
+  <main class="content">
+    <router-view></router-view>
+  </main>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-import { MapjarMap, TileLayer } from '../lib/main'
-import type { MapEngine } from 'mapjar'
-
-const center = ref<[number, number]>([116.3975, 39.9085]) // 北京
-const zoom = ref(10)
-const tileScale = ref(1)
-
-const onMapLoad = (mapEngine: MapEngine) => {
-  console.log('地图加载完成', mapEngine)
-}
-
-const onMapError = (error: Error) => {
-  console.error('地图加载失败', error)
-}
-
-const resetView = () => {
-  center.value = [116.3975, 39.9085]
-  zoom.value = 10
-}
-</script>
-
 <style scoped>
-#app {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-h1 {
-  margin-bottom: 20px;
-}
-
-.map-container {
-  width: 100%;
-  height: 600px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-
-.controls {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.slider-control {
+.sidebar {
+  width: 250px;
+  background: #f5f5f5;
+  border-right: 1px solid #ddd;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  padding: 20px;
 }
 
-.slider-control label {
-  font-size: 14px;
-  color: #666;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
-.slider-control input[type='range'] {
-  width: 200px;
+.logo img {
+  width: 30px;
+  height: 30px;
 }
 
-button {
-  padding: 8px 16px;
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
   border-radius: 4px;
-  border: 1px solid #646cff;
+  transition: background 0.2s;
+}
+
+nav a:hover {
+  background: #e0e0e0;
+}
+
+nav a.router-link-active {
   background: #646cff;
   color: white;
-  cursor: pointer;
-  font-size: 14px;
 }
 
-button:hover {
-  background: #535bf2;
+.content {
+  flex: 1;
+  overflow-y: auto;
 }
 </style>

@@ -45,8 +45,7 @@ const stopWatch = watch(
       initLayer()
       stopWatch() // 初始化后停止监听
     }
-  },
-  { immediate: true }
+  }
 )
 
 onMounted(() => {
